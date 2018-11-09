@@ -42,18 +42,18 @@ service:
     http: 
       port: 80
       # set it when the type of service is "NodePort"
-      nodePort: 30002
+      nodePort: 31002
     # The port Harbor listens on when serving with HTTPS
     https: 
       port: 443
       # set it when the type of service is "NodePort"
-      nodePort: 30003
+      nodePort: 31003
     # The port Notary service listens on. Only needed when
     # notary.enabled is set to true
     notary: 
       port: 4443
       # set it when the type of service is "NodePort"
-      nodePort: 30004
+      nodePort: 31004
 
 logLevel: debug
 
@@ -161,16 +161,23 @@ database:
         # storageClass: "-"
         subPath: "database"
         accessMode: ReadWriteOnce
-        size: 1Gi
+        size: 10Gi
     # resources:
     #  requests:
     #    memory: 256Mi
     #    cpu: 100m
     nodeSelector: {}
     tolerations: []
-    affinity: {}
+  affinity: 
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hostname
+            operator: In
+            values:
+            - powerstation
   external:
-    host: "192.168.0.1"
+    host: "192.168.1.1"
     port: "5432"
     username: "user"
     password: "password"
@@ -197,14 +204,21 @@ registry:
       # storageClass: "-"
       subPath: "registry"
       accessMode: ReadWriteOnce
-      size: 5Gi
+      size: 50Gi
   # resources:
   #  requests:
   #    memory: 256Mi
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+   affinity: 
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hostname
+            operator: In
+            values:
+            - powerstation
 
 chartmuseum:
   enabled: true
@@ -225,7 +239,14 @@ chartmuseum:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hostname
+            operator: In
+            values:
+            - powerstation
 
 # Define which storage backend is used for registry and chartmuseum.
 # Refer to https://github.com/docker/distribution/blob/master/docs/configuration.md#storage 
@@ -313,7 +334,14 @@ clair:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hostname
+            operator: In
+            values:
+            - powerstation
 
 redis:
   # if external Redis is used, set "type" to "external"
@@ -338,7 +366,7 @@ redis:
     tolerations: []
     affinity: {}
   external:
-    host: "192.168.0.2"
+    host: "192.168.1.2"
     port: "6379"
     # The "coreDatabaseIndex" must be "0" as the library Harbor
     # used doesn't support configuring it
@@ -362,4 +390,11 @@ notary:
     replicas: 1
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hostname
+            operator: In
+            values:
+            - powerstation
