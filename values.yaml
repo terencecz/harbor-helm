@@ -74,7 +74,15 @@ portal:
 #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: storage
+            operator: In 
+            values:
+            - true
 
 nginx:
   image:
@@ -96,7 +104,15 @@ nginx:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: storage
+            operator: In 
+            values:
+            - true
 
 adminserver:
   image:
@@ -109,7 +125,15 @@ adminserver:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: storage
+            operator: In 
+            values:
+            - true
 
 jobservice:
   image:
@@ -130,7 +154,15 @@ jobservice:
 #     cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: storage
+            operator: In 
+            values:
+            - true
 
 core:
   image:
@@ -143,7 +175,15 @@ core:
 #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity: 
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: storage
+            operator: In 
+            values:
+            - true
 
 database:
   # if external database is used, set "type" to "external"
@@ -177,7 +217,7 @@ database:
             values:
             - powerstation
   external:
-    host: "192.168.1.1"
+    host: "192.168.1.9"
     port: "5432"
     username: "user"
     password: "password"
@@ -211,14 +251,15 @@ registry:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-   affinity: 
-      requiredDuringSchedulingIgnoredDuringExecution:
+  affinity: 
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
         nodeSelectorTerms:
         - matchExpressions:
-          - key: hostname
-            operator: In
+          - key: storage
+            operator: In 
             values:
-            - powerstation
+            - true
 
 chartmuseum:
   enabled: true
@@ -240,13 +281,14 @@ chartmuseum:
   nodeSelector: {}
   tolerations: []
   affinity: 
-      requiredDuringSchedulingIgnoredDuringExecution:
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
         nodeSelectorTerms:
         - matchExpressions:
-          - key: hostname
-            operator: In
+          - key: storage
+            operator: In 
             values:
-            - powerstation
+            - true 
 
 # Define which storage backend is used for registry and chartmuseum.
 # Refer to https://github.com/docker/distribution/blob/master/docs/configuration.md#storage 
@@ -335,14 +377,14 @@ clair:
   nodeSelector: {}
   tolerations: []
   affinity: 
-      requiredDuringSchedulingIgnoredDuringExecution:
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
         nodeSelectorTerms:
         - matchExpressions:
-          - key: hostname
-            operator: In
+          - key: storage
+            operator: In 
             values:
-            - powerstation
-
+            - true
 redis:
   # if external Redis is used, set "type" to "external"
   # and fill the connection informations in "external" section
@@ -366,7 +408,7 @@ redis:
     tolerations: []
     affinity: {}
   external:
-    host: "192.168.1.2"
+    host: "192.168.1.9"
     port: "6379"
     # The "coreDatabaseIndex" must be "0" as the library Harbor
     # used doesn't support configuring it
@@ -391,10 +433,11 @@ notary:
   nodeSelector: {}
   tolerations: []
   affinity: 
-      requiredDuringSchedulingIgnoredDuringExecution:
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution: 
         nodeSelectorTerms:
         - matchExpressions:
-          - key: hostname
-            operator: In
+          - key: storage
+            operator: In 
             values:
-            - powerstation
+            - true
