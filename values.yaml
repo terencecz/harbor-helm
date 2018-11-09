@@ -74,15 +74,7 @@ portal:
 #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
 
 nginx:
   image:
@@ -104,15 +96,7 @@ nginx:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
 
 adminserver:
   image:
@@ -125,15 +109,7 @@ adminserver:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
 
 jobservice:
   image:
@@ -154,15 +130,7 @@ jobservice:
 #     cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
 
 core:
   image:
@@ -175,15 +143,7 @@ core:
 #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
 
 database:
   # if external database is used, set "type" to "external"
@@ -208,14 +168,7 @@ database:
     #    cpu: 100m
     nodeSelector: {}
     tolerations: []
-  affinity: 
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: hostname
-            operator: In
-            values:
-            - powerstation
+    affinity: {}
   external:
     host: "192.168.1.9"
     port: "5432"
@@ -244,22 +197,14 @@ registry:
       # storageClass: "-"
       subPath: "registry"
       accessMode: ReadWriteOnce
-      size: 50Gi
+      size: 1000Gi
   # resources:
   #  requests:
   #    memory: 256Mi
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
 
 chartmuseum:
   enabled: true
@@ -280,15 +225,7 @@ chartmuseum:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true 
+  affinity: {}
 
 # Define which storage backend is used for registry and chartmuseum.
 # Refer to https://github.com/docker/distribution/blob/master/docs/configuration.md#storage 
@@ -376,15 +313,8 @@ clair:
   #    cpu: 100m
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
+
 redis:
   # if external Redis is used, set "type" to "external"
   # and fill the connection informations in "external" section
@@ -432,12 +362,4 @@ notary:
     replicas: 1
   nodeSelector: {}
   tolerations: []
-  affinity: 
-    nodeAffinity: 
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: storage
-            operator: In 
-            values:
-            - true
+  affinity: {}
